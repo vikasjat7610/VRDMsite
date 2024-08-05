@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Website</title>
+    
+    <style>
+        ::-webkit-input-placeholder {
+    color: skyblue;
+  }
+  
+  :-ms-input-placeholder {
+    color: skyblue;
+  }
+  
+  ::-ms-input-placeholder {
+    color: skyblue;
+  }
+  
+  ::placeholder {
+    color: skyblue;
+  }
+  
+  .form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(70deg, #243331, #28223b);
+  }
+  
+  .form form {
+    position: absolute;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    gap: 20px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  
+  .form form #name, .form form #email, .form form #message {
+    width: 50%;
+    background: transparent;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid skyblue;
+    -webkit-transition: 600ms;
+    transition: 600ms;
+    color: skyblue;
+  }
+  
+  .form form #name:focus, .form form #email:focus, .form form #message:focus {
+    width: 52%;
+  }
+  
+  .form form #btn {
+    position: relative;
+    border: none;
+    background: transparent;
+    color: skyblue;
+    padding: 5px;
+    border-radius: 5px;
+    border: 2px solid skyblue;
+    -webkit-transition: 600ms;
+    transition: 600ms;
+  }
+  
+  .form form #btn:hover {
+    cursor: pointer;
+    -webkit-box-shadow: inset 0 0 10px skyblue, 0 0 10px skyblue;
+            box-shadow: inset 0 0 10px skyblue, 0 0 10px skyblue;
+  }
+
+    </style>
+</head>
+<body>
+   
+    <div class="form">
+        <form action="" onsubmit=" return sender()">
+            <input type="text" name="name" id="name" placeholder="Your name" required>
+            <input type="number" name="email" id="email" placeholder="Your Number" required>
+            <textarea name="message" id="message" cols="30" rows="10" placeholder="Enter message" required></textarea>
+            <input type="submit" value="Submit" id="btn">
+        </form>
+    </div>
+    
+    <script>
+        //bot token
+var telegram_bot_id = "6539268294:AAFBS11KxNL6mnmqm0NVoHY7C0FLf3hz0Yc";
+//chat id
+var chat_id = 1815847082;
+var u_name, email, message;
+var ready = function () {
+    u_name = document.getElementById("name").value;
+    email = document.getElementById("email").value;
+    message = document.getElementById("message").value;
+    message = "Name: " + u_name + "\nNumber: " + email + "\nMessage: " + message;
+};
+var sender = function () {
+    ready();
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://api.telegram.org/bot" + telegram_bot_id + "/sendMessage",
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "cache-control": "no-cache"
+        },
+        "data": JSON.stringify({
+            "chat_id": chat_id,
+            "text": message
+        })
+    };
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+    });
+    document.getElementById("name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("message").value = "";
+    return false;
+};
+    </script>
+</body>
+</html>
